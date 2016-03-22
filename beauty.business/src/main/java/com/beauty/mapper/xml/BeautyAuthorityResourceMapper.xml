@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.beauty.mapper.BeautyAuthorityResourceMapper">
+	<resultMap id="BaseResultMap" type="com.beauty.entity.BeautyAuthorityResource">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="authority_id" property="authorityId" jdbcType="BIGINT" />
+		<result column="resource_id" property="resourceId" jdbcType="BIGINT" />
+		<result column="type" property="type" jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, authority_id, resource_id, type
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from beauty_authority_resource
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from beauty_authority_resource
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.beauty.entity.BeautyAuthorityResource">
+		insert into beauty_authority_resource (id, authority_id, resource_id,
+		type)
+		values (#{id,jdbcType=BIGINT}, #{authorityId,jdbcType=BIGINT}, #{resourceId,jdbcType=BIGINT},
+		#{type,jdbcType=TINYINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.beauty.entity.BeautyAuthorityResource">
+		insert into beauty_authority_resource
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="authorityId != null">
+				authority_id,
+			</if>
+			<if test="resourceId != null">
+				resource_id,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="authorityId != null">
+				#{authorityId,jdbcType=BIGINT},
+			</if>
+			<if test="resourceId != null">
+				#{resourceId,jdbcType=BIGINT},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.beauty.entity.BeautyAuthorityResource">
+		update beauty_authority_resource
+		<set>
+			<if test="authorityId != null">
+				authority_id = #{authorityId,jdbcType=BIGINT},
+			</if>
+			<if test="resourceId != null">
+				resource_id = #{resourceId,jdbcType=BIGINT},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=TINYINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.beauty.entity.BeautyAuthorityResource">
+		update beauty_authority_resource
+		set authority_id = #{authorityId,jdbcType=BIGINT},
+		resource_id = #{resourceId,jdbcType=BIGINT},
+		type = #{type,jdbcType=TINYINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>
