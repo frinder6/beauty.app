@@ -2,3 +2,9 @@
 /*.iml
 target
 *.jar
+*.iml
+/beauty.admin/*.iml
+/beauty.app/*.iml
+/beauty.business/*.iml
+/beauty.common/*.iml
+/beauty.system/*.iml
