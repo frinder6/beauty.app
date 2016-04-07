@@ -25,7 +25,13 @@ public class SysTableController {
 
 	@RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Page queryPage(HttpServletRequest request) {
+	public List<?> queryPage() {
+		Map<String, Object> params = new HashMap<>();
+		params.put(RedisUtil._REDIS_CACHE_KEY, RedisUtil.getRedisKey("SYS-TABLE", params));
+		List<?> list = this.sysTableService.selectPage(params);
+		return list;
+	}
+	/*public Page queryPage(HttpServletRequest request) {
 		Page page = new Page();
 		page.init(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -39,6 +45,6 @@ public class SysTableController {
 		List<?> list = this.sysTableService.selectPage(params);
 		page.setResult(list, count + "", count + "");
 		return page;
-	}
+	}*/
 
 }

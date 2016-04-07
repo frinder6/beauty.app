@@ -37,7 +37,14 @@ public class ColumnsController {
 
 	@RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Page queryPage(HttpServletRequest request) {
+	public List<?> queryPage(BeautyTableColumns entity) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("tableName", entity.getTableName());
+		params.put(RedisUtil._REDIS_CACHE_KEY, RedisUtil.getRedisKey("COLUMNS", params));
+		List<?> list = this.columnsService.selectPage(params);
+		return list;
+	}
+	/*public Page queryPage(HttpServletRequest request) {
 		Page page = new Page();
 		page.init(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -53,7 +60,7 @@ public class ColumnsController {
 		List<?> list = this.columnsService.selectPage(params);
 		page.setResult(list, count + "", count + "");
 		return page;
-	}
+	}*/
 
 	@RequestMapping(value = "/conf", produces = "application/json; charset=utf-8")
 	@ResponseBody

@@ -8,6 +8,6 @@
 	session.setAttribute("basePath", basePath);
 %>
 <script type="text/javascript">
-	window.location = '${basePath}/pages/index.jsp';
+	window.location = '${basePath}/pages/login.jsp';
 </script>
 

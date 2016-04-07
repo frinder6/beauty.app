@@ -46,7 +46,7 @@
 			style : 'multi',
 			selector : 'td:first-child'
 		},
-		order : [ [ 2, 'asc' ] ],
+		order : [ [ 1, 'asc' ] ],
 		pageLength : 10,
 		columns : []
 	// orderMulti : false,

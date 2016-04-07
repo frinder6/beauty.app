@@ -6,7 +6,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>beauty</groupId>
     <artifactId>beauty.app</artifactId>
     <packaging>war</packaging>
     <name>beauty.app Maven Webapp</name>
@@ -16,12 +15,31 @@
     </build>
 
     <dependencies>
+
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
+            <groupId>beauty</groupId>
+            <artifactId>beauty.common</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>beauty</groupId>
+            <artifactId>beauty.base</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>beauty</groupId>
+            <artifactId>beauty.business</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>beauty</groupId>
+            <artifactId>beauty.system</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
 </project>

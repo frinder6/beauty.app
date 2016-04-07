@@ -34,7 +34,7 @@ public class UserController {
 	@RequestMapping(value = "/auths", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public List<?> getUserAuths() {
-		List<String> auths = new ArrayList<String>();
+		List<String> auths = new ArrayList<>();
 		try {
 			UserInfo user = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Collection<GrantedAuthority> authorities = user.getAuthorities();
@@ -49,7 +49,13 @@ public class UserController {
 
 	@RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Page queryPage(HttpServletRequest request, BeautyUser entity) {
+	public List<?> queryPage() {
+		Map<String, Object> params = new HashMap<>();
+		params.put(RedisUtil._REDIS_CACHE_KEY, RedisUtil.getRedisKey("USER", params));
+		List<?> list = this.userService.selectPage(params);
+		return list;
+	}
+	/*public Page queryPage(HttpServletRequest request, BeautyUser entity) {
 		Page page = new Page();
 		page.init(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -63,7 +69,7 @@ public class UserController {
 		List<?> list = this.userService.selectPage(params);
 		page.setResult(list, count + "", count + "");
 		return page;
-	}
+	}*/
 
 	@RequestMapping(value = "/add", produces = "application/json; charset=utf-8")
 	@ResponseBody

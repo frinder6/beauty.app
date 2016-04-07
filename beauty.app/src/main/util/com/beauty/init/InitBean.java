@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Created by frinder_liu on 2016/3/7.
  */
-@Component
+//@Component
 public class InitBean {
 
     @Autowired
@@ -50,8 +50,8 @@ public class InitBean {
 
 
     @PostConstruct
-    public void initMethod(){
-        if (isInit){
+    public void initMethod() {
+        if (isInit) {
             return;
         }
         try {
@@ -66,6 +66,7 @@ public class InitBean {
 
     /**
      * init queue
+     *
      * @throws Exception
      */
     public void initQueues() throws Exception {
@@ -82,6 +83,7 @@ public class InitBean {
 
     /**
      * init jobs
+     *
      * @throws Exception
      */
     public void initJobs() throws Exception {

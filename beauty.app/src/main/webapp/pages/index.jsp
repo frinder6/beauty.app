@@ -45,7 +45,7 @@
 								</button>
 								<ul class="dropdown-menu dropdown-menu-usermenu pull-right">
 									<li><a id="user-profile" href="javascript:_REDIRECT('/pages/bracket/user-profile.jsp');"><i class="glyphicon glyphicon-user"></i> 用户信息</a></li>
-									<li><a id="cache-flush" href="javascript:void(0)" class="auth" data-auth="RES-REDIS-FLUSH"><i class="glyphicon glyphicon-refresh"></i> 刷新缓存</a></li>
+									<li><a id="cache-flush" href="javascript:void(0)" class=".auth" data-auth="RES-REDIS-FLUSH"><i class="glyphicon glyphicon-refresh"></i> 刷新缓存</a></li>
 									<li><a href="${basePath}/j_spring_security_logout"><i class="glyphicon glyphicon-log-out"></i> 退出</a></li>
 								</ul>
 							</div>
@@ -62,7 +62,7 @@
 			</div>
 
 			<div class="contentpanel" style="padding: 10px; background-color: #E4E7EA;">
-				<iframe id="iframe-main" src="${basePath }/pages/bracket/content.jsp" name="iframe-main" frameborder="0" width="100%" scrolling="no"></iframe>
+				<iframe id="iframe-main" src="${basePath }/pages/content.jsp" name="iframe-main" frameborder="0" width="100%" scrolling="no"></iframe>
 			</div>
 
 		</div>

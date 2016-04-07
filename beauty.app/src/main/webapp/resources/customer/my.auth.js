@@ -39,7 +39,7 @@
                     var auth = $(need).attr('data-auth');
                     if (auth) {
                         if (!e.isAuth(auth)) {
-                            $(need).remove();
+                          //  $(need).remove();
                         }
                     }
                 });

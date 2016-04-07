@@ -26,7 +26,12 @@ public class QueueController {
 
     @RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
     @ResponseBody
-    public Page queryPage(HttpServletRequest request) {
+    public List<?> queryPage() {
+        Map<String, Object> params = new HashMap<>();
+        List<?> list = this.queueService.selectPage(params);
+        return list;
+    }
+    /*public Page queryPage(HttpServletRequest request) {
         Page page = new Page();
         page.init(request);
         Map<String, Object> params = new HashMap<String, Object>();
@@ -35,7 +40,7 @@ public class QueueController {
         List<?> list = this.queueService.selectPage(params);
         page.setResult(list, count + "", count + "");
         return page;
-    }
+    }*/
 
 
     @RequestMapping(value = "/add", produces = "application/json; charset=utf-8")

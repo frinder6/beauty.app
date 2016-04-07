@@ -23,10 +23,10 @@
     <http pattern="/**/*.css" security="none"/>
     <http pattern="/**/*.js" security="none"/>
     <http pattern="/index.jsp" security="none"/>
-    <http pattern="/pages/index.jsp" security="none"/>
-    <http pattern="/pages/bracket/login.jsp" security="none"/>
+    <http pattern="/pages/login.jsp" security="none"/>
     <http pattern="/**/login.action*" security="none"/>
-    <http pattern="/**/**" security="none"/>
+    <!--<http pattern="/**/*.action" security="none"/>-->
+    <!--<http pattern="/**/*.jsp" security="none"/>-->
     <http auto-config="false" use-expressions="true" entry-point-ref="loginUrlEntryPoint">
         <intercept-url pattern="/**" access="permitAll"/>
         <remember-me data-source-ref="dataSource"
@@ -45,7 +45,7 @@
             <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
         </session-management>
         <logout invalidate-session="true" logout-url="/j_spring_security_logout"
-                logout-success-url="/pages/bracket/login.jsp?logout=true"/>
+                logout-success-url="/pages/login.jsp?logout=true"/>
     </http>
 
 

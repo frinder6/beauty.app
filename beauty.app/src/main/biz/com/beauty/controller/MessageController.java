@@ -30,7 +30,12 @@ public class MessageController {
 
 	@RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Page queryPage(HttpServletRequest request) {
+	public List<?> queryPage() {
+		Map<String, Object> params = new HashMap<>();
+		List<?> list = this.messageService.selectPage(params);
+		return list;
+	}
+	/*public Page queryPage(HttpServletRequest request) {
 		Page page = new Page();
 		page.init(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -39,7 +44,7 @@ public class MessageController {
 		List<?> list = this.messageService.selectPage(params);
 		page.setResult(list, count + "", count + "");
 		return page;
-	}
+	}*/
 
 	@RequestMapping(value = "/load/by/account", produces = "application/json; charset=utf-8")
 	@ResponseBody

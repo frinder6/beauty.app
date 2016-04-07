@@ -5,7 +5,6 @@ import org.apache.log4j.Logger;
 import org.springframework.security.core.AuthenticationException;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -44,11 +43,7 @@ public class LoginErrorFilter implements Filter {
             logger.error(exception);
             String error = exception.getMessage();
             logger.error(error);
-            if (_ERRORS.containsKey(error)) {
-                session.setAttribute("error", _ERRORS.get(error));
-            } else {
-                session.setAttribute("error", error);
-            }
+            session.setAttribute("error", error);
         } else {
             session.setAttribute("error", "");
         }

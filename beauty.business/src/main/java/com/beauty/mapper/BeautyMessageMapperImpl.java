@@ -1,7 +1,5 @@
 package com.beauty.mapper;
 
-import com.beauty.dao.IMapperImpl;
-
 import java.util.List;
 import java.util.Map;
 

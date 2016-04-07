@@ -23,7 +23,7 @@
 
 	$.fn.ServerMessage = function(options) {
 		var smg = new ServerMessage(this, options);
-		smg.init();
+	//	smg.init();
 		return smg;
 	};
 	

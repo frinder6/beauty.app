@@ -37,7 +37,7 @@
         constructor: Message,
         init: function () {
             var url = _PATH('/message/load/by/account.action');
-            var url_all = '/pages/bracket/sys/message-list.jsp';
+            var url_all = '/pages/sys/message-list.jsp';
             $.ajax({
                 type : 'POST',
                 url : url,

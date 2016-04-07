@@ -33,7 +33,13 @@ public class AuthorityController {
 
 	@RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Page queryPage(HttpServletRequest request, BeautyAuthority entity) {
+	public List<?> queryPage() {
+		Map<String, Object> params = new HashMap<>();
+		params.put(RedisUtil._REDIS_CACHE_KEY, RedisUtil.getRedisKey("AUTHORITY", params));
+		List<?> list = this.authorityService.selectPage(params);
+		return list;
+	}
+	/*public Page queryPage(HttpServletRequest request, BeautyAuthority entity) {
 		Page page = new Page();
 		page.init(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -47,7 +53,7 @@ public class AuthorityController {
 		List<?> list = this.authorityService.selectPage(params);
 		page.setResult(list, count + "", count + "");
 		return page;
-	}
+	}*/
 
 	@RequestMapping(value = "/group", produces = "application/json; charset=utf-8")
 	@ResponseBody

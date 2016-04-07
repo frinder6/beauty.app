@@ -7,7 +7,7 @@
 
     <!-- 登录入口 -->
     <bean id="loginUrlEntryPoint" class="com.beauty.security.AjaxLoginUrlAuthenticationEntryPoint">
-        <constructor-arg name="ajaxInvalidSessionUrl" value="/pages/bracket/login.jsp"/>
+        <constructor-arg name="ajaxInvalidSessionUrl" value="/pages/login.jsp"/>
     </bean>
 
     <!-- 验证调用链 -->
@@ -23,19 +23,19 @@
 
 
     <!-- form-login实现，登陆成功、失败的具体处理逻辑 -->
-    <bean id="selfDefinedFormLoginFilter"
-          class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+    <!--<bean id="selfDefinedFormLoginFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">-->
+    <bean id="selfDefinedFormLoginFilter" class="com.beauty.security.MyUsernamePasswordAuthenticationFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="authenticationSuccessHandler">
             <bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
                 <property name="alwaysUseDefaultTargetUrl" value="true"/>
-                <property name="defaultTargetUrl" value="/redirect/redirect/pages.bracket.index/jsp.action"/>
+                <property name="defaultTargetUrl" value="/redirect/redirect/pages.index/jsp.action"/>
                 <property name="targetUrlParameter" value="redirectTo"/>
             </bean>
         </property>
         <property name="authenticationFailureHandler">
             <bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
-                <property name="defaultFailureUrl" value="/pages/bracket/login.jsp?error=true"/>
+                <property name="defaultFailureUrl" value="/pages/login.jsp?error=true"/>
             </bean>
         </property>
         <property name="rememberMeServices">
@@ -69,8 +69,6 @@
         <property name="hideUserNotFoundExceptions" value="false"/>
         <property name="passwordEncoder" ref="passwordEncoder"/>
     </bean>
-
-
 
 
 </beans>

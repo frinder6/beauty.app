@@ -27,7 +27,15 @@ public class AuthorityResourceController {
 
 	@RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Page queryPage(HttpServletRequest request, @RequestParam("type") Integer type, @RequestParam("authorityId") Long authorityId, @RequestParam("table") String table) {
+	public List<?> queryPage(@RequestParam("type") Integer type, @RequestParam("authorityId") Long authorityId, @RequestParam("table") String table) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("type", type);
+		params.put("authorityId", authorityId);
+		params.put("table", table);
+		List<?> list = this.authorityResourceService.selectPage(params);
+		return list;
+	}
+	/*public Page queryPage(HttpServletRequest request, @RequestParam("type") Integer type, @RequestParam("authorityId") Long authorityId, @RequestParam("table") String table) {
 		Page page = new Page();
 		page.init(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -40,11 +48,18 @@ public class AuthorityResourceController {
 		List<?> list = this.authorityResourceService.selectPage(params);
 		page.setResult(list, count + "", count + "");
 		return page;
-	}
+	}*/
 
 	@RequestMapping(value = "/load/conf/page", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Page queryConfPage(HttpServletRequest request, @RequestParam("authorityId") Long authorityId, @RequestParam("type") Integer type) {
+	public List<?> queryConfPage(@RequestParam("authorityId") Long authorityId, @RequestParam("type") Integer type) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("type", type);
+		params.put("authorityId", authorityId);
+		List<?> list = this.authorityResourceService.selectConfPage(params);
+		return list;
+	}
+	/*public Page queryConfPage(HttpServletRequest request, @RequestParam("authorityId") Long authorityId, @RequestParam("type") Integer type) {
 		Page page = new Page();
 		page.init(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -56,7 +71,7 @@ public class AuthorityResourceController {
 		List<?> list = this.authorityResourceService.selectConfPage(params);
 		page.setResult(list, count + "", count + "");
 		return page;
-	}
+	}*/
 
 	@RequestMapping(value = "/add", produces = "application/json; charset=utf-8")
 	@ResponseBody

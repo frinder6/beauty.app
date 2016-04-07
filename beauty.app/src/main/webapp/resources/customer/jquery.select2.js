@@ -10,7 +10,8 @@
 		url : '',
 		pid : '',
 		init : false,
-		sid : ''
+		sid : '',
+		group : false
 	};
 
 	$.fn.select = function(options) {
@@ -54,7 +55,7 @@
 						async : false,
 						success : function(data) {
 							if (data && data.length > 0) {
-								//
+								var group = '<optgroup label="{0}"></optgroup>';
 								var opt = '<option value="{0}" selected="selected">{1}</option>';
 								$(settings.sid).html(opt.format(data[0].id, data[0].text));
 								//
@@ -75,7 +76,7 @@
 						text : e.text()
 					});
 				}
-			},
+			}
 		});
 
 		return select;

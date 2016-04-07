@@ -1,15 +1,14 @@
 package com.beauty.controller;
 
-import com.beauty.util.DwrUtil;
 import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.beauty.util.DwrUtil;
 
 @Controller
 @RemoteProxy
 public class PushMessageController {
-
 
 	/**
 	 * 
@@ -41,7 +40,5 @@ public class PushMessageController {
 	public void sendServerMessage(String userId, String message) {
 		DwrUtil.sendMessage(userId, message);
 	}
-
-
 
 }

@@ -21,13 +21,20 @@ import com.beauty.util.RedisUtil;
 @RequestMapping("/schema")
 public class SchemaColumnsController {
 
-	@Autowired
-	private SchemaColumnsService schemaColumnsService;
+    @Autowired
+    private SchemaColumnsService schemaColumnsService;
 
-	@RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public Page queryPage(HttpServletRequest request, @RequestParam("tableName") String tableName) {
-		Page page = new Page();
+    @RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public List<?> queryPage(@RequestParam("tableName") String tableName) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("tableName", tableName);
+        params.put(RedisUtil._REDIS_CACHE_KEY, RedisUtil.getRedisKey("SCHEMA-COLUMNS", params));
+        List<?> list = this.schemaColumnsService.selectPage(params);
+        return list;
+    }
+    /*public Page queryPage(HttpServletRequest request, @RequestParam("tableName") String tableName) {
+        Page page = new Page();
 		page.init(request);
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("tableName", tableName);
@@ -41,6 +48,6 @@ public class SchemaColumnsController {
 		List<?> list = this.schemaColumnsService.selectPage(params);
 		page.setResult(list, count + "", count + "");
 		return page;
-	}
+	}*/
 
 }

@@ -23,12 +23,20 @@ import com.beauty.util.RedisUtil;
 @RequestMapping("/ra")
 public class RoleAuthorityController {
 
-	@Autowired
-	private RoleAuthorityService roleAuthorityService;
+    @Autowired
+    private RoleAuthorityService roleAuthorityService;
 
-	@RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public Page queryPage(HttpServletRequest request, @RequestParam("roleId") Long roleId, @RequestParam("table") String table) {
+    @RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public List<?> queryPage(@RequestParam("roleId") Long roleId, @RequestParam("table") String table) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("roleId", roleId);
+        params.put("table", table);
+        params.put(RedisUtil._REDIS_CACHE_KEY, RedisUtil.getRedisKey("ROLE-AUTHORITY", params));
+        List<?> list = this.roleAuthorityService.selectPage(params);
+        return list;
+    }
+    /*public Page queryPage(HttpServletRequest request, @RequestParam("roleId") Long roleId, @RequestParam("table") String table) {
 		Page page = new Page();
 		page.init(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -44,11 +52,18 @@ public class RoleAuthorityController {
 		List<?> list = this.roleAuthorityService.selectPage(params);
 		page.setResult(list, count + "", count + "");
 		return page;
-	}
+	}*/
 
-	@RequestMapping(value = "/load/conf/page", produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public Page queryConfPage(HttpServletRequest request, @RequestParam("roleId") Long roleId) {
+    @RequestMapping(value = "/load/conf/page", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public List<?> queryConfPage(@RequestParam("roleId") Long roleId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("roleId", roleId);
+        params.put(RedisUtil._REDIS_CACHE_KEY, RedisUtil.getRedisKey("ROLE-AUTHORITY", params));
+        List<?> list = this.roleAuthorityService.selectConfPage(params);
+        return list;
+    }
+	/*public Page queryConfPage(HttpServletRequest request, @RequestParam("roleId") Long roleId) {
 		Page page = new Page();
 		page.init(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -63,22 +78,22 @@ public class RoleAuthorityController {
 		List<?> list = this.roleAuthorityService.selectConfPage(params);
 		page.setResult(list, count + "", count + "");
 		return page;
-	}
+	}*/
 
-	@RequestMapping(value = "/add", produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public Value persist(Value value) {
-		this.roleAuthorityService.insert(value);
-		return new Value(CodeUtil.ADD_SUCCESS);
-	}
+    @RequestMapping(value = "/add", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public Value persist(Value value) {
+        this.roleAuthorityService.insert(value);
+        return new Value(CodeUtil.ADD_SUCCESS);
+    }
 
-	@RequestMapping(value = "/remove", produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public Value delete(Value value) {
-		if (!value.getValues().isEmpty()) {
-			this.roleAuthorityService.deleteByPrimaryKeys(value.getValues());
-		}
-		return new Value(CodeUtil.DELETE_SUCCESS);
-	}
+    @RequestMapping(value = "/remove", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public Value delete(Value value) {
+        if (!value.getValues().isEmpty()) {
+            this.roleAuthorityService.deleteByPrimaryKeys(value.getValues());
+        }
+        return new Value(CodeUtil.DELETE_SUCCESS);
+    }
 
 }

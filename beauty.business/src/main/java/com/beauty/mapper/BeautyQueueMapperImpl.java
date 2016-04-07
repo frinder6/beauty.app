@@ -1,6 +1,5 @@
 package com.beauty.mapper;
 
-import com.beauty.dao.IMapperImpl;
 import com.beauty.entity.BeautyQueue;
 
 import java.util.List;

@@ -36,7 +36,7 @@ _BASE = '${basePath}';
 <script src="${basePath }/resources/angular/angular.js"></script>
 <script src="${basePath }/resources/layer/layer.js"></script>
 <script src="${basePath }/resources/bracket/js/select2.full.js"></script>
-<script src="${basePath }/resources/customer/jquery.select2.js"></script>
+<%--<script src="${basePath }/resources/customer/jquery.select2.js"></script>--%>
 <script src="${basePath }/resources/bracket/js/jquery.form.js"></script>
 <script src="${basePath }/resources/bracket/js/jquery.formFill.js"></script>
 <script src="${basePath }/resources/bracket/js/jquery.validate.min.js"></script>
@@ -46,8 +46,10 @@ _BASE = '${basePath}';
 <script src="${basePath }/resources/customer/util.js"></script>
 <script src="${basePath }/resources/customer/my.auth.js"></script>
 <script src="${basePath }/resources/customer/my.form.js"></script>
-<script src="${basePath }/resources/customer/jquery.datatables.extends.version.2.0.js"></script>
+<%--<script src="${basePath }/resources/customer/jquery.datatables.extends.version.2.0.js"></script>--%>
+<script type="text/javascript" src="${basePath }/resources/customer/my.datatables.js"></script>
 <script src="${basePath }/resources/customer/my.sys.js"></script>
+<script src="${basePath }/resources/customer/my.select2.js"></script>
 
 <script type="text/javascript">
 	layer.config({

@@ -11,7 +11,7 @@
 		constructor : Menu,
 		init : function() {
 			var e = this;
-			var url = (_BASE + '/menu/load/main.action');
+			var url = (_BASE + '/menu/load/menu.action');
 			$.ajax({
 				type : 'POST',
 				url : url,
@@ -46,11 +46,11 @@
 					}
 					var li1 = '';
 					if (m.children.length == 0) {
-						li1 = _LI_1.format(li_class, m.def2, m.name, '');
+						li1 = _LI_1.format(li_class, m.image, m.name, '');
 					} else {
 						var ul2 = e.levelMenu(m.children);
 						li_class += p_class;
-						li1 = _LI_1.format(li_class, m.def2, m.name, ul2);
+						li1 = _LI_1.format(li_class, m.image, m.name, ul2);
 					}
 					li1s += li1;
 				});

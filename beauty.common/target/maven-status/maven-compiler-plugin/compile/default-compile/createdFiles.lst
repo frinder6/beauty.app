@@ -3,7 +3,6 @@ com\beauty\util\JavaHttp.class
 com\beauty\util\CamelCaseUtils.class
 com\beauty\util\CollectionUtil.class
 com\beauty\util\JSONUtil.class
-beauty\App.class
 com\beauty\annotation\Need.class
 com\beauty\util\DatatablesUtil.class
 com\beauty\util\DwrUtil$3.class

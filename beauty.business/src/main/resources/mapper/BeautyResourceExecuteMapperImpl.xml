@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.beauty.mapper.BeautyResourceExecuteMapperImpl">
+
+	<resultMap id="BaseResultMap" extends="com.beauty.mapper.BeautyResourceMapper.BaseResultMap" type="com.beauty.entity.BeautyResource">
+		<id column="id" property="DT_RowId" jdbcType="BIGINT" />
+	</resultMap>
+
+
+	<sql id="Base_Where_Clause">
+		<if test="searchValue">
+			AND ( name LIKE "%" #{searchValue} "%" OR code LIKE "%" #{searchValue} "%"
+			OR remark LIKE "%" #{searchValue} "%" OR image LIKE "%" #{searchValue} "%"
+			)
+		</if>
+	</sql>
+
+	<sql id="Base_Page_Sql">
+		<if test="table == 'left'">
+			SELECT t1.id, t1.`code`, t1.`name`, t1.image
+			FROM beauty_execute t1
+			WHERE NOT EXISTS
+			(SELECT id
+			FROM beauty_resource t2
+			WHERE t2.execute_id = t1.id AND t2.parent_id = #{id})
+			<include refid="Base_Where_Clause" />
+			ORDER BY
+			<if test="orderColumn"> ${orderColumn} ${orderDir} </if>
+			<if test="orderColumn == null"> id </if>
+			LIMIT #{from}, #{size}
+		</if>
+		<if test="table == 'right'">
+			SELECT t1.id, t1.`code`, t1.`name`, t1.url, t1.image
+			FROM   beauty_resource t1 LEFT JOIN beauty_execute t2 ON t1.execute_id = t2.id
+			WHERE  t1.parent_id = #{id}
+			<include refid="Base_Where_Clause" />
+			ORDER BY
+			<if test="orderColumn"> ${orderColumn} ${orderDir} </if>
+			<if test="orderColumn == null"> id </if>
+			LIMIT #{from}, #{size}
+		</if>
+	</sql>
+
+	<sql id="Base_Count_Sql">
+		<if test="table == 'left'">
+			SELECT COUNT(1)
+			FROM beauty_execute t1
+			WHERE NOT EXISTS
+			(SELECT id
+			FROM beauty_resource t2
+			WHERE t2.execute_id = t1.id AND t2.parent_id = #{id})
+			<include refid="Base_Where_Clause" />
+		</if>
+		<if test="table == 'right'">
+			SELECT COUNT(1)
+			FROM   beauty_resource t1 LEFT JOIN beauty_execute t2 ON t1.execute_id = t2.id
+			WHERE  t1.parent_id = #{id}
+			<include refid="Base_Where_Clause" />
+		</if>
+	</sql>
+
+	<select id="selectPage" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		<include refid="Base_Page_Sql" />
+	</select>
+	<select id="selectCount" parameterType="java.util.HashMap" resultType="int">
+		<include refid="Base_Count_Sql" />
+	</select>
+
+</mapper>

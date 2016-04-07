@@ -100,7 +100,8 @@ h1,h2,h3,h4,h5 {
 
 strong {
     font-family: 'LatoBold';
-    font-weight: normal;
+    /*font-weight: normal;*/
+    font-weight: bolder;
 }
 
 /* preloader */
@@ -806,7 +807,7 @@ strong {
 }
 
 .pageheader .fa-file-text {
-    padding: 6px 10px;`
+    padding: 6px 10px;
 }
 
 .pageheader .fa-map-marker {

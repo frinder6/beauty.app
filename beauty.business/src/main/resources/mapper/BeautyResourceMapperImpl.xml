@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.beauty.mapper.BeautyResourceMapperImpl">
+
+    <resultMap id="BaseResultMap" extends="com.beauty.mapper.BeautyResourceMapper.BaseResultMap"
+               type="com.beauty.entity.BeautyResource">
+        <id column="id" property="DT_RowId" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <resultMap type="com.beauty.entity.BeautyResource" id="MenuBaseResultMap" extends="BaseResultMap">
+        <collection property="children" javaType="ArrayList" ofType="com.beauty.entity.BeautyResource"
+                    column="{id=id,user_id=user_id}"
+                    select="selectChildren"></collection>
+    </resultMap>
+
+    <resultMap id="BaseSelectResultMap" type="com.beauty.model.Select">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="text" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="SelectResultMap" type="com.beauty.model.Select" extends="BaseSelectResultMap">
+        <collection property="children" javaType="ArrayList" ofType="com.beauty.entity.Select" column="id"
+                    select="selectMenuSelectChildren"></collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <include refid="com.beauty.mapper.BeautyResourceMapper.Base_Column_List"/>
+    </sql>
+
+
+    <sql id="Base_Where_Clause">
+        <where>
+            1 = 1
+            <if test="searchValue">
+                AND ( name LIKE "%" #{searchValue} "%" OR code LIKE "%" #{searchValue} "%" OR remark LIKE "%"
+                #{searchValue} "%" OR url LIKE "%" #{searchValue} "%" )
+            </if>
+            <if test="serialize">
+                ${serialize}
+            </if>
+            <if test="type != null">
+                AND type = #{type}
+            </if>
+            <if test="parentId != null">
+                AND parent_id &gt; #{parentId}
+            </if>
+        </where>
+    </sql>
+
+
+    <select id="selectPage" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM beauty_resource
+        <include refid="Base_Where_Clause"/>
+        LIMIT 1000
+    </select>
+    <!--<select id="selectPage" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM beauty_resource
+        <include refid="Base_Where_Clause"/>
+        ORDER BY
+        <if test="orderColumn">
+            ${orderColumn} ${orderDir}
+        </if>
+        <if test="orderColumn == null">
+            id
+        </if>
+        LIMIT #{from}, #{size}
+    </select>-->
+    <select id="selectCount" parameterType="java.util.HashMap" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM beauty_resource
+        <include refid="Base_Where_Clause"/>
+    </select>
+
+    <select id="selectResource2Menu" parameterType="java.util.HashMap" resultMap="MenuBaseResultMap">
+        SELECT re.*, u.id AS user_id FROM beauty_resource re
+        LEFT JOIN beauty_authority_resource ar ON re.id = ar.resource_id
+        LEFT JOIN beauty_authority a ON a.id = ar.authority_id
+        LEFT JOIN beauty_role_authority ra ON ra.authority_id = a.id
+        LEFT JOIN beauty_role r ON r.id = ra.role_id
+        LEFT JOIN beauty_user_role ur ON ur.role_id = r.id
+        LEFT JOIN beauty_user u ON u.id = ur.user_id
+        WHERE u.id = #{userId} AND re.type = 1 AND re.`status` = 1 AND re.parent_id = 0
+        ORDER BY re.id
+    </select>
+    <select id="selectChildren" resultMap="MenuBaseResultMap">
+        SELECT re.*, u.id AS user_id FROM beauty_resource re
+        LEFT JOIN beauty_authority_resource ar ON re.id = ar.resource_id
+        LEFT JOIN beauty_authority a ON a.id = ar.authority_id
+        LEFT JOIN beauty_role_authority ra ON ra.authority_id = a.id
+        LEFT JOIN beauty_role r ON r.id = ra.role_id
+        LEFT JOIN beauty_user_role ur ON ur.role_id = r.id
+        LEFT JOIN beauty_user u ON u.id = ur.user_id
+        WHERE u.id = #{user_id} AND re.type = 1 AND re.`status` = 1 AND re.parent_id = #{id}
+        ORDER BY re.id
+    </select>
+
+
+    <select id="selectMenuSelect" parameterType="java.util.HashMap" resultMap="SelectResultMap">
+        SELECT id, name FROM beauty_resource
+        WHERE type = 1 AND id != 0 AND parent_id = 0
+    </select>
+    <select id="selectMenuSelectChildren" resultMap="BaseSelectResultMap">
+        SELECT id, name FROM beauty_resource
+        WHERE type = 1 AND (parent_id = #{id} OR id = #{id})
+    </select>
+
+
+    <delete id="deleteByPrimaryKeys" parameterType="java.util.List">
+        delete from beauty_resource
+        where 1 != 1
+        <if test="list.size() > 0">
+            OR id IN
+            <foreach collection="list" open="(" close=")" item="id" separator=",">
+                #{id}
+            </foreach>
+        </if>
+    </delete>
+
+    <update id="batchGroup" parameterType="com.beauty.model.Value">
+        update beauty_resource set group_id = #{data}
+        where 1 != 1
+        <if test="values.size() > 0">
+            OR id IN
+            <foreach collection="values" open="(" close=")" item="id" separator=",">
+                #{id}
+            </foreach>
+        </if>
+    </update>
+
+</mapper>

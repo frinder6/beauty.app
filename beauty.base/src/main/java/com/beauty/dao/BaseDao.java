@@ -4,13 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
 import com.beauty.entity.Page;
@@ -20,7 +14,6 @@ public class BaseDao<T> implements IDao<T> {
 
 	@Autowired(required = true)
 	protected SqlSession sqlSessionTemplate;
-
 
 	@Override
 	public List<T> query(String sql) {

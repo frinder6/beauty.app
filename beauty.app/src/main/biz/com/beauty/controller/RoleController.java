@@ -29,7 +29,13 @@ public class RoleController {
 
 	@RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Page queryPage(HttpServletRequest request, BeautyRole entity) {
+	public List<?> queryPage() {
+		Map<String, Object> params = new HashMap<>();
+		params.put(RedisUtil._REDIS_CACHE_KEY, RedisUtil.getRedisKey("ROLE", params));
+		List<?> list = this.roleService.selectPage(params);
+		return list;
+	}
+	/*public Page queryPage(HttpServletRequest request, BeautyRole entity) {
 		Page page = new Page();
 		page.init(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -43,7 +49,7 @@ public class RoleController {
 		List<?> list = this.roleService.selectPage(params);
 		page.setResult(list, count + "", count + "");
 		return page;
-	}
+	}*/
 
 	@RequestMapping(value = "/add", produces = "application/json; charset=utf-8")
 	@ResponseBody

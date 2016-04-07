@@ -28,7 +28,15 @@ public class UserRoleController {
 
 	@RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Page queryPage(HttpServletRequest request, @RequestParam("userId") String userId, @RequestParam("table") String table) {
+	public List<?> queryPage(@RequestParam("userId") String userId, @RequestParam("table") String table) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("userId", userId);
+		params.put("table", table);
+		params.put(RedisUtil._REDIS_CACHE_KEY, RedisUtil.getRedisKey("USER-ROLE", params));
+		List<?> list = this.userRoleService.selectPage(params);
+		return list;
+	}
+	/*public Page queryPage(HttpServletRequest request, @RequestParam("userId") String userId, @RequestParam("table") String table) {
 		Page page = new Page();
 		page.init(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -44,11 +52,18 @@ public class UserRoleController {
 		List<?> list = this.userRoleService.selectPage(params);
 		page.setResult(list, count + "", count + "");
 		return page;
-	}
+	}*/
 
 	@RequestMapping(value = "/load/conf/page", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Page queryConfPage(HttpServletRequest request, @RequestParam("userId") String userId) {
+	public List<?> queryConfPage(@RequestParam("userId") String userId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("userId", userId);
+		params.put(RedisUtil._REDIS_CACHE_KEY, RedisUtil.getRedisKey("USER-ROLE", params));
+		List<?> list = this.userRoleService.selectConfPage(params);
+		return list;
+	}
+	/*public Page queryConfPage(HttpServletRequest request, @RequestParam("userId") String userId) {
 		Page page = new Page();
 		page.init(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -63,7 +78,7 @@ public class UserRoleController {
 		List<?> list = this.userRoleService.selectConfPage(params);
 		page.setResult(list, count + "", count + "");
 		return page;
-	}
+	}*/
 
 	@RequestMapping(value = "/add", produces = "application/json; charset=utf-8")
 	@ResponseBody

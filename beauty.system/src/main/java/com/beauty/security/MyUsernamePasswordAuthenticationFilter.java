@@ -1,6 +1,5 @@
 package com.beauty.security;
 
-import javax.security.auth.login.CredentialExpiredException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,24 +18,24 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 public class MyUsernamePasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private final Logger logger = Logger.getLogger(getClass());
+	private final Logger logger = Logger.getLogger(getClass());
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        logger.info("MyUsernamePasswordAuthenticationFilter.attemptAuthentication()............begin!");
-        try {
-            Authentication authentication = super.attemptAuthentication(request, response);
-            return authentication;
-        } catch (UsernameNotFoundException e) {
-            throw new AuthenticationServiceException("user doesn't exists!");
-        } catch (BadCredentialsException e) {
-            throw new BadCredentialsException("error password!");
-        } catch (LockedException e) {
-            throw new LockedException("account locked!");
-        } catch (DisabledException e) {
-            throw new DisabledException("account no use!");
-        } catch (Exception e) {
-            throw new AuthenticationServiceException("system error!");
-        }
-    }
+	@Override
+	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+		logger.info("MyUsernamePasswordAuthenticationFilter.attemptAuthentication()............begin!");
+		try {
+			Authentication authentication = super.attemptAuthentication(request, response);
+			return authentication;
+		} catch (UsernameNotFoundException e) {
+			throw new AuthenticationServiceException(e.getMessage());
+		} catch (BadCredentialsException e) {
+			throw new BadCredentialsException("密码错误！");
+		} catch (LockedException e) {
+			throw new LockedException(e.getMessage());
+		} catch (DisabledException e) {
+			throw new DisabledException(e.getMessage());
+		} catch (Exception e) {
+			throw new AuthenticationServiceException(e.getMessage());
+		}
+	}
 }

@@ -64,7 +64,7 @@ public class InvocationSecurityMetadataSourceServiceImpl implements FilterInvoca
 		this.loadResources();
 		// object 是一个URL，用户请求的url。
 		String url = ((FilterInvocation) object).getRequestUrl();
-		int len = url.indexOf("\\?");
+		int len = url.indexOf("?");
 		if (len > -1) {
 			// 截取参数之前的url
 			url = url.substring(0, len);
@@ -128,6 +128,7 @@ public class InvocationSecurityMetadataSourceServiceImpl implements FilterInvoca
 				authorityMap.put(resourceValue, attributes);
 			}
 		}
+		logger.debug(JSON.toJSONString(authorityMap));
 	}
 
 	/*

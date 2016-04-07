@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beauty.entity.BeautyUrl;
@@ -22,13 +23,19 @@ import com.beauty.util.RedisUtil;
 @RequestMapping("/url")
 public class UrlController {
 
-	@Autowired
-	private UrlService urlService;
+    @Autowired
+    private UrlService urlService;
 
-	@RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public Page queryPage(HttpServletRequest request, BeautyUrl url) {
-		Page page = new Page();
+    @RequestMapping(value = "/load/page", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public List<?> queryPage() {
+        Map<String, Object> params = new HashMap<>();
+        params.put(RedisUtil._REDIS_CACHE_KEY, RedisUtil.getRedisKey("URL", params));
+        List<?> list = this.urlService.selectPage(params);
+        return list;
+    }
+    /*public Page queryPage(HttpServletRequest request, BeautyUrl url) {
+        Page page = new Page();
 		page.init(request);
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("dialog", request.getParameter("dialog"));
@@ -42,24 +49,24 @@ public class UrlController {
 		List<?> list = this.urlService.selectPage(params);
 		page.setResult(list, count + "", count + "");
 		return page;
-	}
+	}*/
 
-	@RequestMapping(value = "/mark", produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public Value batchMark(Value value) {
-		if (!value.getValues().isEmpty()) {
-			this.urlService.batchMark(value.getValues());
-		}
-		return new Value(CodeUtil.SUCCESS);
-	}
+    @RequestMapping(value = "/mark", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public Value batchMark(Value value) {
+        if (!value.getValues().isEmpty()) {
+            this.urlService.batchMark(value.getValues());
+        }
+        return new Value(CodeUtil.SUCCESS);
+    }
 
-	@RequestMapping(value = "/remove", produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public Value delete(Value value) {
-		if (!value.getValues().isEmpty()) {
-			this.urlService.deleteByPrimaryKeys(value.getValues());
-		}
-		return new Value(CodeUtil.DELETE_SUCCESS);
-	}
+    @RequestMapping(value = "/remove", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public Value delete(Value value) {
+        if (!value.getValues().isEmpty()) {
+            this.urlService.deleteByPrimaryKeys(value.getValues());
+        }
+        return new Value(CodeUtil.DELETE_SUCCESS);
+    }
 
 }
