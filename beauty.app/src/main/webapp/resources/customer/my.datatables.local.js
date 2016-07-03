@@ -34,12 +34,12 @@
         lengthChange: true,
         ordering: true,
         paging: true,
-        processing: true,
+        processing: false,
         scrollX: true,
         searching: true,
         serverSide: false,
         stateSave: true,
-        destory: false,
+        destory: true,
         displayStart: 0,
         dom: '',
         select: {
@@ -52,7 +52,7 @@
         data: []
     };
 
-    var MyGrid = function (element, options) {
+    var DGrid = function (element, options) {
         this.$this = element;
         this.$opts = options;
     };
@@ -161,8 +161,8 @@
         });
     };
 
-    MyGrid.prototype = {
-        constructor: MyGrid,
+    DGrid.prototype = {
+        constructor: DGrid,
         init: function (options) {
             var $opts = this.$opts;
             // load columns
@@ -255,8 +255,6 @@
             // console.log(JSON.stringify(options));
             // return table
             var table = $this.DataTable(options);
-            // add search input
-            e.setSearchInput();
             // set table for get
             e.$table = table;
             // select
@@ -269,13 +267,6 @@
         },
         getTable: function () {
             return this.$table;
-        },
-        setSearchInput: function () {
-            var $this = this.$this;
-            $this.find('thead th').each(function () {
-                var title = $this.find('thead th').eq($(this).index()).text();
-                $this.find('tfoot th').html('<input type="text" placeholder="Search ' + title + '" />');
-            });
         },
         select: function () {
             var e = this;
@@ -306,6 +297,16 @@
                 ck.attr('checked') == 'checked' ? ck.removeAttr('checked') : '';
                 table.rows().deselect();
             });
+        },
+        addRows: function (items) {
+            var e = this;
+            var table = e.getTable();
+            table.rows().add(items).draw(false);
+        },
+        reomveRows: function () {
+            var e = this;
+            var table = e.getTable();
+            table.rows('.selected').remove().draw(false);
         },
         selectItems: function () {
             var e = this;
@@ -367,17 +368,24 @@
         },
         reload: function () {
             var table = this.getTable();
-            table.row('.selected').remove().draw(false);
-            table.ajax.reload();
+            var $opts = this.$opts;
+            console.log(JSON.stringify($opts))
+            var load_data_options = $.extend(true, {}, $opts.grid.ajax, {
+                success: function (data) {
+                    table.clear().draw();
+                    table.rows.add(data).draw();
+                }
+            });
+            ajaxGrid(load_data_options);
         }
     };
 
-    $.fn.MyGrid = function (options) {
-        var grid = new MyGrid(this, options);
+    $.fn.DGrid = function (options) {
+        var grid = new DGrid(this, options);
         grid.myGrid();
         return grid;
     };
 
-    $.fn.MyGrid.Constructor = MyGrid;
+    $.fn.DGrid.Constructor = DGrid;
 
 })(jQuery, window, document);

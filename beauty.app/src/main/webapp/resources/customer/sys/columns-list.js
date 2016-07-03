@@ -11,7 +11,7 @@ $(function() {
 		<a class="btn btn-default fa fa-minus-square-o oper-operate">&nbsp;删除</a>\
     </div>';
 
-	var table = $('#list').MyGrid({
+	var table = $('#list').DGrid({
 		gridName : 'BEAUTY_TABLE_COLUMNS',
 		tools : tools,
 		grid : {

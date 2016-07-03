@@ -83,7 +83,7 @@
 <script type="text/javascript">
     $(function () {
 
-        $('#pselect').Select({
+        $('#pselect').MySelect2({
             url: '/menu/select/menu.action',
             remote: true,
             group: true

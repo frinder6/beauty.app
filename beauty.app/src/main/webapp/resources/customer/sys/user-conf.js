@@ -22,7 +22,7 @@ $(function() {
 
 	var lopts = _grid;
 	lopts.dom = '<"row"<"#BEAUTY_USER_ROLE_ltool.col-xs-12"f>>t<"row"<"col-xs-6"i><"col-xs-6"p>>';
-	var ltable = $('#l-list').MyGrid({
+	var ltable = $('#l-list').DGrid({
 		gridName : 'BEAUTY_USER_ROLE',
 		tools : ltools,
 		toolId : '#BEAUTY_USER_ROLE_ltool',
@@ -49,7 +49,7 @@ $(function() {
 	var ropts = _grid;
 	ropts.dom = '<"row"<"#BEAUTY_USER_ROLE_rtool.col-xs-12"f>>t<"row"<"col-xs-6"i><"col-xs-6"p>>';
 	ropts.ajax.data.table = 'right';
-	var rtable = $('#r-list').MyGrid({
+	var rtable = $('#r-list').DGrid({
 		gridName : 'BEAUTY_USER_ROLE',
 		tools : rtools,
 		toolId : '#BEAUTY_USER_ROLE_rtool',

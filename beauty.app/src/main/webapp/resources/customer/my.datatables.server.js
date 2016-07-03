@@ -153,7 +153,7 @@
 				// alert(JSON.stringify(options.columns));
 			}
 		},
-		pdiv : function() {
+		toolDiv: function () {
 			var div = $('#' + this.$this.attr('id') + '_wrapper');
 			return div;
 		},
@@ -271,21 +271,21 @@
 				initComplete : function() {
 
 					// 添加操作按钮
-					e.pdiv().find(toolId).append($opts.tools);
+					e.toolDiv().find(toolId).append($opts.tools);
 
 					// 权限处理
 					$(this).Auth();
 
 					// 删除方法
 					if ($opts.delUrl) {
-						e.pdiv().find('div.btn-group').find('a.oper-delete').click(function() {
+						e.toolDiv().find('div.btn-group').find('a.oper-delete').click(function() {
 							e.remove();
 						});
 					}
 
 					// 操作
 					if ($opts.ajax) {
-						e.pdiv().find('div.btn-group').find('a.oper-operate').click(function() {
+						e.toolDiv().find('div.btn-group').find('a.oper-operate').click(function() {
 							e.operate();
 						});
 					}
@@ -362,7 +362,7 @@
 		select : function() {
 			var e = this;
 			var table = e.getTable();
-			this.pdiv().find('input.table-select').click(function() {
+			this.toolDiv().find('input.table-select').click(function() {
 				var checked = $(this).attr('checked');
 				if (checked) {
 					// 全选
@@ -384,7 +384,7 @@
 			var e = this;
 			var table = e.getTable();
 			table.on('search.dt order.dt', function() {
-				var ck = e.pdiv().find('input.table-select');
+				var ck = e.toolDiv().find('input.table-select');
 				ck.attr('checked') == 'checked' ? ck.removeAttr('checked') : '';
 				table.rows().deselect();
 			});

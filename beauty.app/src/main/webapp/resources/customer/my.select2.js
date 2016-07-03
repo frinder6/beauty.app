@@ -14,13 +14,13 @@
         group: false
     };
 
-    var Select = function (element, options) {
+    var MySelect2 = function (element, options) {
         this.$this = element;
         this.$opts = options;
     };
 
-    Select.prototype = {
-        constructor: Select,
+    MySelect2.prototype = {
+        constructor: MySelect2,
         init: function () {
             var options = $.extend(true, {}, defaults, this.$opts);
             if (options.remote) {
@@ -62,16 +62,21 @@
                 // minimumInputLength: 1,
                 data: options.data
             });
+        },
+        setDefaultValue: function (v) {
+            var $this = this.$this;
+            $this.val(v);
+            $this.trigger('change');
         }
     };
 
 
-    $.fn.Select = function (options) {
-        var select = new Select(this, options);
+    $.fn.MySelect2 = function (options) {
+        var select = new MySelect2(this, options);
         select.select();
         return select;
     };
 
-    $.fn.Select.Constructor = Select;
+    $.fn.MySelect2.Constructor = MySelect2;
 
 })(jQuery);

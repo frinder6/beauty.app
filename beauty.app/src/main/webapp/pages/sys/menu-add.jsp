@@ -19,11 +19,11 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4 class="panel-title">新增菜单</h4>
+            <h4 class="panel-title">新增导航</h4>
         </div>
         <div class="panel-body">
             <div class="form-group">
-                <label class="col-sm-3 control-label">菜单名称： <span class="asterisk">*</span></label>
+                <label class="col-sm-3 control-label">导航名称： <span class="asterisk">*</span></label>
 
                 <div class="col-sm-6">
                     <input type="text" name="name" class="form-control" placeholder="Type please..." required/>
@@ -31,7 +31,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">菜单编码： <span class="asterisk">*</span></label>
+                <label class="col-sm-3 control-label">导航编码： <span class="asterisk">*</span></label>
 
                 <div class="col-sm-6">
                     <input type="text" name="code" class="form-control" placeholder="Type please..." required/>
@@ -77,7 +77,7 @@
 <script type="text/javascript">
     $(function () {
 
-        $('#pselect').Select({
+        $('#pselect').MySelect2({
             url: '/menu/select/menu.action',
             remote: true
         });

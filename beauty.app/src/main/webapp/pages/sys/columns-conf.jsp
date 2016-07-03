@@ -51,7 +51,6 @@ div.dataTables_wrapper {
 	</div>
 
 	<jsp:include page="../import-js.jsp" />
-	<script type="text/javascript" src="${basePath }/resources/customer/jquery.datatables.extends.version.2.0.js"></script>
 	<script type="text/javascript" src="${basePath }/resources/customer/sys/columns-conf.js"></script>
 
 	<script type="text/javascript">

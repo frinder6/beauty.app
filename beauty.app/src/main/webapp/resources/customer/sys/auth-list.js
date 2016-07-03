@@ -24,7 +24,7 @@ $(function() {
 		<a class="btn btn-default fa fa-group auth" data-auth="RES-AUTH-GROUP" onclick="group()">&nbsp;分组</a>\
     </div>';
 
-	var table = $('#list').MyGrid({
+	var table = $('#list').DGrid({
 		gridName : 'BEAUTY_AUTHORITY',
 		tools : tools,
 		grid : {

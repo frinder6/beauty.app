@@ -24,7 +24,7 @@ $(function () {
 		<a class="btn btn-default fa fa-filter" onclick="direct({0})">&nbsp;{1}</a>\
     </div>';
 
-    var table = $('#list').MyGrid({
+    var table = $('#list').DGrid({
         gridName: 'BEAUTY_RESOURCE',
         tools: tools.format(type, tools_txt),
         grid: {

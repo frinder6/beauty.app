@@ -7,7 +7,7 @@
 </head>
 <body style="background-color: #E4E7EA;">
 
-	<%@include file="../import-search.jsp"%>
+	<%--<%@include file="../import-search.jsp" %>--%>
 	
 	<div class="table-responsive">
 		<table id="list" class="table table-bordered mb30" width="100%">

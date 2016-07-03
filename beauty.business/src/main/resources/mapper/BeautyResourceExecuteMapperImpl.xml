@@ -15,7 +15,26 @@
 		</if>
 	</sql>
 
+
 	<sql id="Base_Page_Sql">
+		<if test="table == 'left'">
+			SELECT t1.id, t1.`code`, t1.`name`, t1.image
+			FROM beauty_execute t1
+			WHERE NOT EXISTS
+			(SELECT id
+			FROM beauty_resource t2
+			WHERE t2.execute_id = t1.id AND t2.parent_id = #{id})
+			LIMIT 1000
+		</if>
+		<if test="table == 'right'">
+			SELECT t1.id, t1.`code`, t1.`name`, t1.url, t1.image
+			FROM   beauty_resource t1 LEFT JOIN beauty_execute t2 ON t1.execute_id = t2.id
+			WHERE  t1.parent_id = #{id}
+			<include refid="Base_Where_Clause" />
+			LIMIT 1000
+		</if>
+	</sql>
+	<!--<sql id="Base_Page_Sql">
 		<if test="table == 'left'">
 			SELECT t1.id, t1.`code`, t1.`name`, t1.image
 			FROM beauty_execute t1
@@ -39,7 +58,7 @@
 			<if test="orderColumn == null"> id </if>
 			LIMIT #{from}, #{size}
 		</if>
-	</sql>
+	</sql>-->
 
 	<sql id="Base_Count_Sql">
 		<if test="table == 'left'">

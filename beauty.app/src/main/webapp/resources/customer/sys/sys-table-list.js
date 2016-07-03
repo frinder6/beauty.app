@@ -12,7 +12,7 @@ var _RENDER_OPER = function(data, type, row, meta) {
 
 $(function() {
 
-	var table = $('#list').MyGrid({
+	var table = $('#list').DGrid({
 		gridName : 'TABLES',
 		grid : {
 			ajax : {

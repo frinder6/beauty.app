@@ -41,7 +41,7 @@ $(function() {
 		<a class="btn btn-default fa fa-minus-square-o oper-operate auth" data-auth="RES-QUEUE-DEL">&nbsp;删除</a>\
     </div>';
 
-	var table = $('#list').MyGrid({
+	var table = $('#list').DGrid({
 		gridName : 'BEAUTY_QUEUE',
 		tools : tools,
 		grid : {

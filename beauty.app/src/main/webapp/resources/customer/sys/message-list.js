@@ -38,7 +38,7 @@ $(function() {
 		<a class="btn btn-default fa fa-bookmark auth" data-auth="RES-MESSAGE-MARK" onclick="mark()">&nbsp;标记</a>\
     </div>';
 
-	var table = $('#list').MyGrid({
+	var table = $('#list').DGrid({
 		gridName : 'BEAUTY_MESSAGE',
 		tools : tools,
 		grid : {

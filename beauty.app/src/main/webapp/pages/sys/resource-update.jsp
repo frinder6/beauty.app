@@ -21,29 +21,43 @@
 			<div class="panel-body">
 				<div class="form-group">
 					<label class="col-sm-3 control-label">资源名称： <span class="asterisk">*</span></label>
+
 					<div class="col-sm-6">
-						<input type="text" name="name" class="form-control" placeholder="Type please..." required />
+						<input type="text" name="name" class="form-control" placeholder="Type please..." required/>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label">资源编码： <span class="asterisk">*</span></label>
+
 					<div class="col-sm-6">
-						<input type="text" name="code" class="form-control" placeholder="Type please..." required />
+						<input type="text" name="code" class="form-control" placeholder="Type please..." required/>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">所属节点： <span class="asterisk">*</span></label>
+
+					<div class="col-sm-6">
+						<select id="pselect" name="parentId" required placeholder="Type please...">
+						</select> <label class="error" for="pselect"></label>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label">资源URL： <span class="asterisk">*</span></label>
+
 					<div class="col-sm-6">
-						<input type="text" name="url" class="form-control" placeholder="Type please..." required />
+						<input type="text" name="url" class="form-control" placeholder="Type please..." required/>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label">备注： <span class="asterisk">*</span></label>
+
 					<div class="col-sm-6">
-						<textarea type="textarea" name="remark" rows="5" class="form-control" placeholder="Type please..." required></textarea>
+						<textarea type="textarea" name="remark" rows="5" class="form-control" placeholder="Type please..."
+								  required></textarea>
 					</div>
 				</div>
 			</div>
@@ -69,10 +83,19 @@
 
 			var id = '${param.id}';
 
-			var form = $('#basicForm').Form({
+			var select2 = $('#pselect').MySelect2({
+				url: '/menu/select/menu.action',
+				remote: true,
+				group: true
+			});
+
+			$('#basicForm').Form({
 				listUrl : '/pages/sys/resource-list.jsp',
 				idUrl : '/resource/load/id.action',
-				id : id
+				id : id,
+				select: function (data) {
+					select2.setDefaultValue(data.parentId);
+				}
 			});
 
 		});

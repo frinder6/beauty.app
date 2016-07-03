@@ -18,10 +18,10 @@ $(function() {
         <a class="btn btn-default fa fa-copy oper-operate">&nbsp;导入</a>\
     </div>';
 
-	var lopts = _grid;
+	var lopts = $.extend(true, {}, _grid);
 	lopts.dom = '<"row"<"#BEAUTY_SCHEMA_COLUMNS_ltool.col-xs-12"f>>t<"row"<"col-xs-6"i><"col-xs-6"p>>';
 	lopts.ajax.url = _PATH('/schema/load/page.action');
-	var ltable = $('#l-list').MyGrid({
+	var ltable = $('#l-list').DGrid({
 		gridName : 'BEAUTY_SCHEMA_COLUMNS',
 		tools : ltools,
 		toolId : '#BEAUTY_SCHEMA_COLUMNS_ltool',
@@ -45,10 +45,10 @@ $(function() {
      	<a class="btn btn-default fa fa-minus-square-o oper-operate">&nbsp;删除</a>\
     </div>';
 
-	var ropts = _grid;
+	var ropts = $.extend(true, {}, _grid);
 	ropts.dom = '<"row"<"#BEAUTY_SCHEMA_COLUMNS_rtool.col-xs-12"f>>t<"row"<"col-xs-6"i><"col-xs-6"p>>';
 	ropts.ajax.url = _PATH('/columns/load/page.action');
-	var rtable = $('#r-list').MyGrid({
+	var rtable = $('#r-list').DGrid({
 		gridName : 'BEAUTY_SCHEMA_COLUMNS',
 		tools : rtools,
 		toolId : '#BEAUTY_SCHEMA_COLUMNS_rtool',

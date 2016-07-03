@@ -23,7 +23,7 @@ $(function () {
 		<a class="btn btn-default fa fa-pause auth" data-auth="RES-JOB-PAUSE" onclick="pause()">&nbsp;暂停</a>\
     </div>';
 
-    var table = $('#list').MyGrid({
+    var table = $('#list').DGrid({
         gridName: 'BEAUTY_JOB',
         tools: tools,
         grid: {

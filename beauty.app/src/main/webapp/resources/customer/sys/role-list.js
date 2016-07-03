@@ -18,7 +18,7 @@ $(function() {
 		<a class="btn btn-default fa fa-minus-square-o auth oper-operate" data-auth="RES-ROLE-DEL">&nbsp;删除</a>\
     </div>';
 
-	var table = $('#list').MyGrid({
+	var table = $('#list').DGrid({
 		gridName : 'BEAUTY_ROLE',
 		tools : tools,
 		grid : {
