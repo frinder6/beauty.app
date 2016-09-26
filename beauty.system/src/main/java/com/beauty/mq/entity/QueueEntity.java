@@ -153,6 +153,7 @@ public class QueueEntity {
         container = new SimpleMessageListenerContainer(rabbitConnectionFactory);
         MessageListenerAdapter adapter = new MessageListenerAdapter();
         adapter.setDelegate(delegate);
+        adapter.setDefaultListenerMethod("handleMessage");
         container.addQueues(queue);
         container.setMessageListener(adapter);
         logger.info("SimpleMessageListenerContainer...................init.................end!");
