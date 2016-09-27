@@ -8,3 +8,4 @@ target
 /beauty.business/*.iml
 /beauty.common/*.iml
 /beauty.system/*.iml
+*.project
